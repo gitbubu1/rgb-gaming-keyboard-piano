@@ -1,0 +1,144 @@
+/* BASE STYLING */
+body {
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 32px;
+  background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+#themeSelector {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid #333;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background: #111;
+  border-radius: 14px;
+  box-shadow: 0 0 40px #000;
+}
+
+/* ROW POSITIONING */
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* UNDERSHADOW PREP */
+.row::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  width: 80%;
+  height: 20px;
+  border-radius: 40px;
+  filter: blur(35px);
+  opacity: 0.9;
+  z-index: -1;
+}
+
+/* === DEFAULT (RAZER) UNDERGLOW === */
+.row:nth-child(1)::before { background: #00ff62; }
+.row:nth-child(2)::before { background: #00b8ff; }
+.row:nth-child(3)::before { background: #ff00f2; }
+
+/* KEY STYLE */
+.key {
+  width: 70px;
+  height: 80px;
+  border-radius: 10px;
+  background: #1c1c1c;
+  border: 2px solid #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  color: #ddd;
+  transition: 0.15s ease;
+  box-shadow: 0 0 10px #000 inset;
+}
+
+/* === RGB OUTLINE ANIMATED (default Razer theme) === */
+.key::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    #00ff6a,
+    #00eaff,
+    #00a6ff,
+    #0070ff,
+    #9500ff,
+    #ff00ff,
+    #ff0088
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: rgbCycle 3s linear infinite;
+}
+
+@keyframes rgbCycle {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+
+/* PRESS EFFECT */
+.key:active,
+.key.active {
+  transform: translateY(3px);
+  background: #333;
+  box-shadow: 0 0 20px #00eaff;
+  color: #fff;
+}
+
+/* === THEME OVERRIDES === */
+
+/* CORSAIR THEME */
+.corsair .key::before {
+  background: linear-gradient(45deg, #ffee00, #00c8ff, #0038ff);
+}
+
+.corsair .row:nth-child(1)::before { background: #ffee00; }
+.corsair .row:nth-child(2)::before { background: #00c8ff; }
+.corsair .row:nth-child(3)::before { background: #0038ff; }
+
+/* HYPERX THEME */
+.hyperx .key::before {
+  background: linear-gradient(45deg, #ff002b, #ff005d, #ff335c);
+}
+
+.hyperx .row:nth-child(1)::before,
+.hyperx .row:nth-child(2)::before,
+.hyperx .row:nth-child(3)::before {
+  background: #ff0033;
+}
